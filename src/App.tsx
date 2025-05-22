@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 
 export const App: React.FC = () => {
+  const [lastKey, setLastKey] = React.useState<string | null>(null);
+
   useEffect(() => {
     const handleKeyboardKey = (event: KeyboardEvent) => {
-      const key = event.key;
-
-      document.querySelector('.App__message')!.textContent =
-        `The last pressed key is [${key}]`;
+      setLastKey(event.key);
     };
 
     window.addEventListener('keydown', handleKeyboardKey);
@@ -18,7 +17,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <p className="App__message">Nothing was pressed yet</p>
+      <p className="App__message">
+        {lastKey
+          ? `The last pressed key is [${lastKey}]`
+          : 'Nothing was pressed yet'}
+      </p>
     </div>
   );
 };
